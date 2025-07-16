@@ -149,7 +149,9 @@
             <img src="./Вакансии0 _ Компания СамПет_files/logoinner.svg" alt="" width="224" height="44">
         </a>
 
-        <ul class="navbar__menu">
+        <ul class="
+            
+            ">
             
         <li class="first navbar__menu-lvl-1 navbar__menu-parent">
             <span class="navbar__menu-title | spoiler">
@@ -671,7 +673,47 @@
 <script src="./Вакансии0 _ Компания СамПет_files/alpine3.10.2.js"></script>
 <script>
 //обработка вакансий
-document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
+        const menuParents = document.querySelectorAll('.navbar__menu-parent');
+
+        menuParents.forEach(parent => {
+            const submenu = parent.querySelector('.navbar__menu-submenu');
+            const spoiler = parent.querySelector('.spoiler');
+
+            // Клик по пункту меню
+            spoiler.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Закрываем все открытые подменю
+                document.querySelectorAll('.navbar__menu-parent.is-open').forEach(item => {
+                    if (item !== parent) {
+                        item.classList.remove('is-open');
+                    }
+                });
+
+                // Переключаем текущее подменю
+                parent.classList.toggle('is-open');
+            });
+
+            // Запрещаем закрытие при наведении на подменю
+            submenu.addEventListener('mouseenter', function () {
+                parent.classList.add('is-open');
+            });
+
+            submenu.addEventListener('mouseleave', function () {
+                // Не закрываем сразу, только при клике вне
+            });
+        });
+
+        // Закрытие при клике вне меню
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.navbar__menu-parent')) {
+                document.querySelectorAll('.navbar__menu-parent.is-open').forEach(item => {
+                    item.classList.remove('is-open');
+                });
+            }
+        });
     const respondButtons = document.querySelectorAll('a[href="#modal_vakansii"]');
     respondButtons.forEach(button => {
         button.addEventListener('click', function(e) {
