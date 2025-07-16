@@ -674,52 +674,12 @@
 <script>
 //обработка вакансий
     document.addEventListener('DOMContentLoaded', function () {
-        const menuParents = document.querySelectorAll('.navbar__menu-parent');
 
-        menuParents.forEach(parent => {
-            const submenu = parent.querySelector('.navbar__menu-submenu');
-            const spoiler = parent.querySelector('.spoiler');
-
-            // Клик по пункту меню
-            spoiler.addEventListener('click', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                // Закрываем все открытые подменю
-                document.querySelectorAll('.navbar__menu-parent.is-open').forEach(item => {
-                    if (item !== parent) {
-                        item.classList.remove('is-open');
-                    }
-                });
-
-                // Переключаем текущее подменю
-                parent.classList.toggle('is-open');
-            });
-
-            // Запрещаем закрытие при наведении на подменю
-            submenu.addEventListener('mouseenter', function () {
-                parent.classList.add('is-open');
-            });
-
-            submenu.addEventListener('mouseleave', function () {
-                // Не закрываем сразу, только при клике вне
-            });
-        });
-
-        // Закрытие при клике вне меню
-        document.addEventListener('click', function (e) {
-            if (!e.target.closest('.navbar__menu-parent')) {
-                document.querySelectorAll('.navbar__menu-parent.is-open').forEach(item => {
-                    item.classList.remove('is-open');
-                });
-            }
-        });
     const respondButtons = document.querySelectorAll('a[href="#modal_vakansii"]');
     respondButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             const vacancyTitle = this.closest('div').querySelector('h3').textContent;
-            
-            // Кидаем заголовок в окно
+    
             document.getElementById('vacancy-title').textContent = vacancyTitle;
             document.getElementById('vacancy-input').value = vacancyTitle;
         });
