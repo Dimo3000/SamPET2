@@ -694,7 +694,44 @@
 <script>
 //обработка вакансий
     document.addEventListener('DOMContentLoaded', function () {
+        const menuParents = document.querySelectorAll('.navbar__menu-parent');
 
+        menuParents.forEach(parent => {
+            const submenu = parent.querySelector('.navbar__menu-submenu');
+            const spoiler = parent.querySelector('.spoiler');
+
+           
+            spoiler.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+               
+                document.querySelectorAll('.navbar__menu-parent.is-open').forEach(item => {
+                    if (item !== parent) {
+                        item.classList.remove('is-open');
+                    }
+                });
+
+               
+                parent.classList.toggle('is-open');
+            });
+
+            submenu.addEventListener('mouseenter', function () {
+                parent.classList.add('is-open');
+            });
+
+            submenu.addEventListener('mouseleave', function () {
+                
+            });
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.navbar__menu-parent')) {
+                document.querySelectorAll('.navbar__menu-parent.is-open').forEach(item => {
+                    item.classList.remove('is-open');
+                });
+            }
+        });
     const respondButtons = document.querySelectorAll('a[href="#modal_vakansii"]');
     respondButtons.forEach(button => {
         button.addEventListener('click', function(e) {
